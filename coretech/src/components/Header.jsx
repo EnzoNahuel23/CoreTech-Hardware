@@ -28,6 +28,8 @@ function Header({cantidad, onVaciar}) {
               <NavDropdown.Item href="#action4">Unidades de Almacenamiento</NavDropdown.Item>
               <NavDropdown.Item href="#action4">Memorias Ram</NavDropdown.Item>
               <NavDropdown.Item href="#action4">Perifericos</NavDropdown.Item>
+              <NavDropdown.Item href="#action4">Placas de Video</NavDropdown.Item>
+              <NavDropdown.Item href="#action4">Consolas</NavDropdown.Item>
               <NavDropdown.Item href="#action4">Equipos Ensamblados</NavDropdown.Item>
             </NavDropdown>
           </Nav>

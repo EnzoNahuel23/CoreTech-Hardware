@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import Header from '../components/Header.jsx'
+import Producto from '../components/Producto.jsx'
 import Footer from '../components/Footer.jsx'
-import Catalogo from '../components/Catalogo.jsx'
+import Catalogo from './CatalogoPage.jsx'
+import Banner from '../components/Banner.jsx'
 
-function App() {
+function Inicio() {
 
   const [cantidad, setCantidad] = useState(0);
-
-  const agregarAlCarrito = () => {
-    setCantidad(cantidad + 1);
-  };
 
   const vaciarCarrito = () => {
     setCantidad(0);
@@ -18,10 +16,11 @@ function App() {
   return (
     <>
       <Header cantidad={cantidad} onVaciar={vaciarCarrito}/>
-      <Catalogo onAgregarProducto={agregarAlCarrito}/>
+      <Banner />
+      
       <Footer />
     </>
   );
 }
 
-export default App
+export default Inicio
