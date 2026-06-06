@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Badge } from "react-bootstrap";
 
 function Header({cantidad, onVaciar}) {
 
@@ -39,7 +40,7 @@ function Header({cantidad, onVaciar}) {
             />
             <Button variant="outline-success" >Buscar</Button>
           </Form>
-          <Nav.Link href="#action2" style={{marginLeft:20, marginRight:20, color:"white"}}>Carrito ({cantidad})</Nav.Link>
+          <Nav.Link href="#action2" style={{marginLeft:20, marginRight:20, color:"white"}}>Carrito <Badge bg="success">{cantidad}</Badge></Nav.Link>
           <Button variant="danger" className="ms-2" onClick={onVaciar}>Vaciar Carrito</Button>
         </Navbar.Collapse>
       </Container>

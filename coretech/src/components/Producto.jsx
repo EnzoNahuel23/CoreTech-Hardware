@@ -12,7 +12,7 @@ function Producto({imagen, titulo, descripcion, onAgregar}) {
       <Card.Body>
         <Card.Title>{titulo}</Card.Title>
         <Card.Text>{descripcion}</Card.Text>
-        <Button variant="primary" onClick={onAgregar}>Agregar al carrito</Button>
+        <Button variant="success" onClick={onAgregar}>Agregar al carrito</Button>
       </Card.Body>
     </Card>
   );
