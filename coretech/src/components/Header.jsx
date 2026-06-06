@@ -1,3 +1,4 @@
+import {useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -5,7 +6,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function Header() {
+function Header({cantidad}) {
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container fluid>
@@ -35,8 +37,9 @@ function Header() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Buscar</Button>
+            <Button variant="outline-success" >Buscar</Button>
           </Form>
+          <Nav.Link href="#action2" style={{marginLeft:20, marginRight:20, color:"white"}}>Carrito ({cantidad})</Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>
