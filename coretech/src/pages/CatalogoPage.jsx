@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import Header from './components/Header.jsx'
-import Producto from './components/Producto.jsx'
-import Footer from './components/Footer.jsx'
-import Catalogo from './pages/CatalogoPage.jsx'
+import Header from '../components/Header.jsx'
+import Footer from '../components/Footer.jsx'
+import Catalogo from '../components/Catalogo.jsx'
 
 function App() {
   // 2. Creamos el estado para la cantidad del carrito acá arriba
@@ -21,6 +20,7 @@ function App() {
   return (
     <>
       <Header cantidad={cantidad} onVaciar={vaciarCarrito}/>
+      <Catalogo onAgregarProducto={agregarAlCarrito}/>
       <Footer />
     </>
   );
