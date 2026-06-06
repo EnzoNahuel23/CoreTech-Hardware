@@ -12,9 +12,15 @@ function App() {
   const agregarAlCarrito = () => {
     setCantidad(cantidad + 1);
   };
+
+  // 1. Creamos la función para reiniciar el estado a 0
+  const vaciarCarrito = () => {
+    setCantidad(0);
+  };
+
   return (
     <>
-      <Header cantidad={cantidad}/>
+      <Header cantidad={cantidad} onVaciar={vaciarCarrito}/>
       <Catalogo onAgregarProducto={agregarAlCarrito}/>
       <Footer />
     </>

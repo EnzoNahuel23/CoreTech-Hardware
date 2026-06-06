@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function Header({cantidad}) {
+function Header({cantidad, onVaciar}) {
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
@@ -40,6 +40,7 @@ function Header({cantidad}) {
             <Button variant="outline-success" >Buscar</Button>
           </Form>
           <Nav.Link href="#action2" style={{marginLeft:20, marginRight:20, color:"white"}}>Carrito ({cantidad})</Nav.Link>
+          <Button variant="danger" className="ms-2" onClick={onVaciar}>Vaciar Carrito</Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
