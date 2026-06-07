@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Header from '../components/Header.jsx'
-import Footer from '../components/Footer.jsx'
-import Catalogo from '../components/Catalogo.jsx'
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import Catalogo from '../components/Catalogo.jsx';
 
-function App() {
-
+// Recibimos 'onNavegar' desde App.jsx
+function CatalogoPage({ onNavegar }) {
   const [cantidad, setCantidad] = useState(0);
 
   const agregarAlCarrito = () => {
@@ -17,11 +17,16 @@ function App() {
 
   return (
     <>
-      <Header cantidad={cantidad} onVaciar={vaciarCarrito}/>
-      <Catalogo onAgregarProducto={agregarAlCarrito}/>
+      {/* Pasamos 'onNavegar' también aquí */}
+      <Header 
+        cantidad={cantidad} 
+        onVaciar={vaciarCarrito} 
+        onNavegar={onNavegar} 
+      />
+      <Catalogo onAgregarProducto={agregarAlCarrito} />
       <Footer />
     </>
   );
 }
 
-export default App
+export default CatalogoPage;

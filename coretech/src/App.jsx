@@ -1,17 +1,25 @@
 import { useState } from 'react';
-import Header from './components/Header.jsx'
-import Producto from './components/Producto.jsx'
-import Footer from './components/Footer.jsx'
-import Catalogo from './pages/CatalogoPage.jsx'
-import Inicio from './pages/Inicio.jsx'
+import Inicio from './pages/Inicio.jsx';
+import CatalogoPage from './pages/CatalogoPage.jsx';
 
 function App() {
+  // Estado para controlar qué pantalla ver: 'inicio' o 'catalogo'
+  const [seccion, setSeccion] = useState('inicio');
+
+  // Función que cambia la pantalla actual
+  const cambiarPantalla = (nuevaPantalla) => {
+    setSeccion(nuevaPantalla);
+  };
 
   return (
     <>
-      <Inicio/>
+      {seccion === 'inicio' ? (
+        <Inicio onNavegar={cambiarPantalla} />
+      ) : (
+        <CatalogoPage onNavegar={cambiarPantalla} />
+      )}
     </>
   );
 }
 
-export default App
+export default App;

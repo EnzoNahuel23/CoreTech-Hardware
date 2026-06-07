@@ -12,7 +12,7 @@ function Imagenes() {
         <Carousel.Item>
           <img 
             className="d-block w-100 img-fluid mx-auto" 
-            src="/imagenes/carousel1.png" 
+            src="/imagenes/inicio/carousel1.png" 
             alt="First slide" 
             style={{ objectFit: 'cover', maxHeight: '450px' }}
           />
@@ -21,7 +21,7 @@ function Imagenes() {
         <Carousel.Item>
           <img 
             className="d-block w-100 img-fluid mx-auto" 
-            src="/imagenes/carousel2.png" 
+            src="/imagenes/inicio/carousel2.png" 
             alt="Second slide" 
             style={{ objectFit: 'cover', maxHeight: '450px' }}
           />
@@ -30,7 +30,7 @@ function Imagenes() {
         <Carousel.Item>
           <img 
             className="d-block w-100 img-fluid mx-auto" 
-            src="/imagenes/carousel3.png" 
+            src="/imagenes/inicio/carousel3.png" 
             alt="Third slide" 
             style={{ objectFit: 'cover', maxHeight: '450px' }}
           />

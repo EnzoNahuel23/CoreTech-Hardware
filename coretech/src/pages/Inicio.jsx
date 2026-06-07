@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import Header from '../components/Header.jsx'
-import Producto from '../components/Producto.jsx'
-import Footer from '../components/Footer.jsx'
-import Catalogo from './CatalogoPage.jsx'
-import Banner from '../components/Banner.jsx'
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import Banner from '../components/Banner.jsx';
 
-function Inicio() {
-
+// Recibimos 'onNavegar' desde App.jsx
+function Inicio({ onNavegar }) {
   const [cantidad, setCantidad] = useState(0);
 
   const vaciarCarrito = () => {
@@ -15,12 +13,16 @@ function Inicio() {
 
   return (
     <>
-      <Header cantidad={cantidad} onVaciar={vaciarCarrito}/>
+      {/* Pasamos 'onNavegar' directamente al Header */}
+      <Header 
+        cantidad={cantidad} 
+        onVaciar={vaciarCarrito} 
+        onNavegar={onNavegar} 
+      />
       <Banner />
-      
       <Footer />
     </>
   );
 }
 
-export default Inicio
+export default Inicio;
