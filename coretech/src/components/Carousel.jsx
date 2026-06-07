@@ -3,10 +3,8 @@ import Carousel from 'react-bootstrap/Carousel';
 
 function Imagenes() {
   return (
-    // 'px-3' añade un pequeño margen a los lados en celulares para que no toque los bordes de la pantalla
     <div className="d-flex justify-content-center align-items-center w-100 px-3 my-4">
       
-      {/* Controlamos el ancho máximo con estilos en línea para que no se estire infinitamente en PC */}
       <Carousel style={{ maxWidth: '1000px', width: '100%' }}> 
         
         <Carousel.Item>

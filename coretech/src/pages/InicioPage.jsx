@@ -3,8 +3,7 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import Banner from '../components/Banner.jsx';
 
-// Recibimos 'onNavegar' desde App.jsx
-function Inicio({ onNavegar }) {
+function Inicio() {
   const [cantidad, setCantidad] = useState(0);
 
   const vaciarCarrito = () => {
@@ -13,12 +12,7 @@ function Inicio({ onNavegar }) {
 
   return (
     <>
-      {/* Pasamos 'onNavegar' directamente al Header */}
-      <Header 
-        cantidad={cantidad} 
-        onVaciar={vaciarCarrito} 
-        onNavegar={onNavegar} 
-      />
+      <Header cantidad={cantidad} onVaciar={vaciarCarrito} />
       <Banner />
       <Footer />
     </>
