@@ -1,18 +1,13 @@
-import { useState } from 'react';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import Banner from '../components/Banner.jsx';
 
-function Inicio() {
-  const [cantidad, setCantidad] = useState(0);
-
-  const vaciarCarrito = () => {
-    setCantidad(0);
-  };
+function Inicio({ carrito = [], onVaciar }) {
+  const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 
   return (
     <>
-      <Header cantidad={cantidad} onVaciar={vaciarCarrito} />
+      <Header cantidad={cantidadTotal} onVaciar={onVaciar} />
       <Banner />
       <Footer />
     </>
