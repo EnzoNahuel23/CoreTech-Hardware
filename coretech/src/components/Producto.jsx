@@ -17,12 +17,11 @@ function Producto({ id, imagen, titulo, precio, stockRestante, onAgregar }) {
     <Card 
       style={{ 
         marginTop: 20,
-        opacity: sinStock ? 0.5 : 1, // Opaca TODA la tarjeta (incluida la imagen) si no hay stock
+        opacity: sinStock ? 0.5 : 1,
         transition: 'all 0.2s ease-in-out'
       }} 
       className="h-100"
     >
-      {/* Zona clickeable del producto */}
       <div 
         onClick={handleCardClick} 
         style={{ cursor: sinStock ? 'not-allowed' : 'pointer' }}
@@ -34,7 +33,7 @@ function Producto({ id, imagen, titulo, precio, stockRestante, onAgregar }) {
         />
         <Card.Body>
           <Card.Title>{titulo}</Card.Title>
-          <Card.Text className="text-success fw-bold">{precio}</Card.Text>
+          <Card.Text className="text-success fw-bold">${precio}</Card.Text>
         </Card.Body>
       </div>
       
@@ -43,7 +42,7 @@ function Producto({ id, imagen, titulo, precio, stockRestante, onAgregar }) {
           variant={sinStock ? "secondary" : "success"} 
           onClick={onAgregar} 
           className="w-100"
-          disabled={sinStock} // Deshabilita el botón si no hay stock
+          disabled={sinStock} 
           style={{ cursor: sinStock ? 'not-allowed' : 'pointer' }}
         >
           {sinStock ? "Sin Stock" : "Agregar al carrito"}

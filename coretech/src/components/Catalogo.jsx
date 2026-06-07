@@ -8,7 +8,6 @@ function Catalogo({ carrito = [], onAgregarProducto }) {
       <Container>
         <Row className="g-5">
           {productos.map((p) => {
-            // Buscamos si este producto ya está en el carrito para calcular el stock restante
             const itemEnCarrito = carrito.find((item) => item.id === p.id);
             const cantidadEnCarrito = itemEnCarrito ? itemEnCarrito.cantidad : 0;
             const stockRestante = p.stock - cantidadEnCarrito;
@@ -19,8 +18,8 @@ function Catalogo({ carrito = [], onAgregarProducto }) {
                   id={p.id}
                   imagen={p.imagen}
                   titulo={p.nombre}
-                  precio={p.precio} // Ya viene con el signo "$" desde productos.js
-                  stockRestante={stockRestante} // Le pasamos el número calculado
+                  precio={p.precio} 
+                  stockRestante={stockRestante} 
                   onAgregar={() => onAgregarProducto(p)}
                 />
               </Col>

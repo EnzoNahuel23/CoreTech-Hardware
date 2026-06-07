@@ -7,10 +7,8 @@ function ProductoPage({ carrito = [], onAgregarProducto, onVaciar }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Buscamos el producto en nuestro archivo de datos externos
   const producto = productos.find((p) => p.id === parseInt(id));
 
-  // Si por algún motivo el ID de la URL no coincide con ningún producto
   if (!producto) {
     return (
       <>
@@ -28,15 +26,12 @@ function ProductoPage({ carrito = [], onAgregarProducto, onVaciar }) {
     );
   }
 
-  // Buscamos si este producto específico ya fue agregado al carrito
   const productoEnCarrito = carrito.find((item) => item.id === producto.id);
   const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
 
-  // Calculamos el stock disponible restante
   const stockRestante = producto.stock - cantidadEnCarrito;
   const sinStock = stockRestante <= 0;
 
-  // Manejador del botón de compra
   const handleComprar = () => {
     if (sinStock) {
       alert("⚠️ Lo sentimos, no se pueden agregar más unidades. ¡Te quedaste sin stock disponible!");
@@ -47,7 +42,6 @@ function ProductoPage({ carrito = [], onAgregarProducto, onVaciar }) {
 
   return (
     <>
-      {/* Pasamos la cantidad total de ítems acumulados y la función de vaciar */}
       <Header 
         cantidad={carrito.reduce((acc, p) => acc + p.cantidad, 0)} 
         onVaciar={onVaciar} 
