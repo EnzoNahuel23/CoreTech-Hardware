@@ -20,5 +20,7 @@ Este proyecto es una aplicación web moderna que simula una tienda online especi
 ## Instrucciones para Instalar y Correr el Proyecto
 
 Para clonar y ejecutar esta aplicación localmente, vas a necesitar tener instalado [Node.js](https://nodejs.org/). Desde tu terminal, seguí estos pasos:
-## Integrantes: Enzo Nahuel Carnero
-## Click aqui para ingresar: https://coretech-hardware.netlify.app/
+## Integrantes: 
+Enzo Nahuel Carnero
+
+Click aqui para ingresar: https://coretech-hardware.netlify.app/
