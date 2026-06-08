@@ -3,11 +3,11 @@ import { Button, Card } from 'react-bootstrap';
 import { formatearPrecio } from '../utils/formatearPrecio.js';
 import './ProductoStyle.css';
 
-function Producto({ id, imagen, titulo, precio, stockRestante, onAgregar }) {
+function Producto({ id, imagen, titulo, precio, stockRestante, alAgregar }) {
   const navigate = useNavigate();
   const sinStock = stockRestante <= 0;
 
-  const handleCardClick = () => {
+  const manejarClickTarjeta = () => {
     if (sinStock) {
       alert("⚠️ Este producto no tiene stock disponible en este momento y no se puede ver el detalle.");
     } else {
@@ -20,7 +20,7 @@ function Producto({ id, imagen, titulo, precio, stockRestante, onAgregar }) {
       className={`producto-card h-100 ${sinStock ? 'sin-stock' : ''}`}
     >
       <div 
-        onClick={handleCardClick} 
+        onClick={manejarClickTarjeta} 
         className="producto-card-link"
       >
         <Card.Img 
@@ -37,7 +37,7 @@ function Producto({ id, imagen, titulo, precio, stockRestante, onAgregar }) {
       <Card.Footer className="bg-body border-0">
         <Button 
           variant={sinStock ? "secondary" : "success"} 
-          onClick={onAgregar} 
+          onClick={alAgregar} 
           className="w-100 producto-btn"
           disabled={sinStock}
         >

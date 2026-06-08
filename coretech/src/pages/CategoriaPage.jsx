@@ -4,18 +4,18 @@ import Producto from '../components/Producto.jsx';
 import { productos } from '../data/productos';
 import './CategoriaPageStyle.css';
 
-function CategoriaPage({ carrito = [], stockDisponible = {}, onAgregar }) {
-  const { cat } = useParams();
+function CategoriaPage({ carrito = [], stockDisponible = {}, alAgregar }) {
+  const { cat: nombreCategoria } = useParams();
   const navigate = useNavigate();
 
   const productosFiltrados = productos.filter(
-    (p) => p.categoria.toLowerCase() === cat.toLowerCase()
+    (producto) => producto.categoria.toLowerCase() === nombreCategoria.toLowerCase()
   );
 
   return (
     <Container className="categoria-page-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="fw-bold text-uppercase">Sección: {cat}</h2>
+        <h2 className="fw-bold text-uppercase">Sección: {nombreCategoria}</h2>
         <Button variant="outline-success" onClick={() => navigate('/catalogo')}>
           Ver Todo el Catálogo →
         </Button>
@@ -23,24 +23,24 @@ function CategoriaPage({ carrito = [], stockDisponible = {}, onAgregar }) {
 
       {productosFiltrados.length === 0 ? (
         <div className="text-center my-5 py-5">
-          <h4>No se encontraron artículos en la categoría "{cat}".</h4>
+          <h4>No se encontraron artículos en la categoría "{nombreCategoria}".</h4>
         </div>
       ) : (
         <Row className="g-4">
-          {productosFiltrados.map((p) => {
-            const itemEnCarrito = carrito.find((item) => item.id === p.id);
+          {productosFiltrados.map((producto) => {
+            const itemEnCarrito = carrito.find((productoCarrito) => productoCarrito.id === producto.id);
             const cantidadEnCarrito = itemEnCarrito ? itemEnCarrito.cantidad : 0;
-            const stockRestante = (stockDisponible[p.id] ?? p.stock) - cantidadEnCarrito;
+            const stockRestante = (stockDisponible[producto.id] ?? producto.stock) - cantidadEnCarrito;
 
             return (
-              <Col xs={12} sm={6} md={3} key={p.id}>
+              <Col xs={12} sm={6} md={3} key={producto.id}>
                 <Producto
-                  id={p.id}
-                  imagen={p.imagen}
-                  titulo={p.nombre}
-                  precio={p.precio}
+                  id={producto.id}
+                  imagen={producto.imagen}
+                  titulo={producto.nombre}
+                  precio={producto.precio}
                   stockRestante={stockRestante}
-                  onAgregar={() => onAgregar(p)}
+                  alAgregar={() => alAgregar(producto)}
                 />
               </Col>
             );

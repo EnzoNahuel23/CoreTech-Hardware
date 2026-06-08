@@ -13,28 +13,30 @@ import Nosotros from './pages/NosotrosPage.jsx';
 import { productos } from './data/productos.js';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(() => {
-    const guardado = localStorage.getItem('coretech-darkmode');
-    return guardado ? JSON.parse(guardado) : false;
+  const [modoOscuro, setModoOscuro] = useState(() => {
+    const almacenado = localStorage.getItem('coretech-darkmode');
+    return almacenado ? JSON.parse(almacenado) : false;
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light');
-    localStorage.setItem('coretech-darkmode', JSON.stringify(darkMode));
-  }, [darkMode]);
+    document.documentElement.setAttribute('data-bs-theme', modoOscuro ? 'dark' : 'light');
+    localStorage.setItem('coretech-darkmode', JSON.stringify(modoOscuro));
+  }, [modoOscuro]);
+
+  const cambiarModoOscuro = () => setModoOscuro((valorActual) => !valorActual);
 
   const [notificacion, setNotificacion] = useState(null);
 
   useEffect(() => {
     if (notificacion) {
-      const timer = setTimeout(() => setNotificacion(null), 2500);
-      return () => clearTimeout(timer);
+      const temporizador = setTimeout(() => setNotificacion(null), 2500);
+      return () => clearTimeout(temporizador);
     }
   }, [notificacion]);
 
   const [carrito, setCarrito] = useState(() => {
-    const guardado = localStorage.getItem('coretech-carrito');
-    return guardado ? JSON.parse(guardado) : [];
+    const almacenado = localStorage.getItem('coretech-carrito');
+    return almacenado ? JSON.parse(almacenado) : [];
   });
 
   useEffect(() => {
@@ -42,10 +44,10 @@ function App() {
   }, [carrito]);
 
   const [stockDisponible, setStockDisponible] = useState(() => {
-    const guardado = localStorage.getItem('coretech-stock');
-    if (guardado) return JSON.parse(guardado);
+    const almacenado = localStorage.getItem('coretech-stock');
+    if (almacenado) return JSON.parse(almacenado);
     const inicial = {};
-    productos.forEach((p) => { inicial[p.id] = p.stock; });
+    productos.forEach((producto) => { inicial[producto.id] = producto.stock; });
     return inicial;
   });
 
@@ -54,7 +56,7 @@ function App() {
   }, [stockDisponible]);
 
   const agregarAlCarrito = (producto) => {
-    const existe = carrito.find((item) => item.id === producto.id);
+    const existe = carrito.find((productoCarrito) => productoCarrito.id === producto.id);
     const stockActual = stockDisponible[producto.id] ?? 0;
 
     if (existe) {
@@ -69,8 +71,8 @@ function App() {
 
     setCarrito((carritoActual) => {
       if (existe) {
-        return carritoActual.map((item) =>
-          item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
+        return carritoActual.map((productoCarrito) =>
+          productoCarrito.id === producto.id ? { ...productoCarrito, cantidad: productoCarrito.cantidad + 1 } : productoCarrito
         );
       }
       return [...carritoActual, { ...producto, cantidad: 1 }];
@@ -81,18 +83,18 @@ function App() {
 
   const restarDelCarrito = (productoId) => {
     setCarrito((carritoActual) => {
-      const existe = carritoActual.find((item) => item.id === productoId);
+      const existe = carritoActual.find((productoCarrito) => productoCarrito.id === productoId);
       if (existe.cantidad === 1) {
-        return carritoActual.filter((item) => item.id !== productoId);
+        return carritoActual.filter((productoCarrito) => productoCarrito.id !== productoId);
       }
-      return carritoActual.map((item) =>
-        item.id === productoId ? { ...item, cantidad: item.cantidad - 1 } : item
+      return carritoActual.map((productoCarrito) =>
+        productoCarrito.id === productoId ? { ...productoCarrito, cantidad: productoCarrito.cantidad - 1 } : productoCarrito
       );
     });
   };
 
   const eliminarDelCarrito = (productoId) => {
-    setCarrito((carritoActual) => carritoActual.filter((item) => item.id !== productoId));
+    setCarrito((carritoActual) => carritoActual.filter((productoCarrito) => productoCarrito.id !== productoId));
   };
 
   const vaciarCarrito = () => {
@@ -101,18 +103,18 @@ function App() {
 
   const finalizarCompra = () => {
     const nuevoStock = { ...stockDisponible };
-    carrito.forEach((item) => {
-      nuevoStock[item.id] = (nuevoStock[item.id] || 0) - item.cantidad;
+carrito.forEach((producto) => {
+    nuevoStock[producto.id] = (nuevoStock[producto.id] || 0) - producto.cantidad;
     });
     setStockDisponible(nuevoStock);
     setCarrito([]);
   };
 
-  const cantidadTotalProductos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  const cantidadTotalProductos = carrito.reduce((acumulador, producto) => acumulador + producto.cantidad, 0);
 
   return (
     <BrowserRouter>
-      <Header cantidad={cantidadTotalProductos} onVaciar={vaciarCarrito} darkMode={darkMode} onToggleDarkMode={() => setDarkMode((prev) => !prev)} notificacion={notificacion} />
+      <Header cantidad={cantidadTotalProductos} alVaciar={vaciarCarrito} modoOscuro={modoOscuro} alCambiarModoOscuro={cambiarModoOscuro} notificacion={notificacion} />
       
       <main className="app-main">
         <Routes>
@@ -120,22 +122,22 @@ function App() {
           
           <Route 
             path="/catalogo" 
-            element={<CatalogoPage carrito={carrito} stockDisponible={stockDisponible} onAgregar={agregarAlCarrito} />} 
+            element={<CatalogoPage carrito={carrito} stockDisponible={stockDisponible} alAgregar={agregarAlCarrito} />} 
           />
           
           <Route 
             path="/producto/:id" 
-            element={<ProductoPage carrito={carrito} stockDisponible={stockDisponible} onAgregarProducto={agregarAlCarrito} />} 
+            element={<ProductoPage carrito={carrito} stockDisponible={stockDisponible} alAgregarProducto={agregarAlCarrito} />} 
           />
 
           <Route 
             path="/categoria/:cat" 
-            element={<CategoriaPage carrito={carrito} stockDisponible={stockDisponible} onAgregar={agregarAlCarrito} />} 
+            element={<CategoriaPage carrito={carrito} stockDisponible={stockDisponible} alAgregar={agregarAlCarrito} />} 
           />
 
           <Route 
             path="/buscar/:query" 
-            element={<BusquedaPage carrito={carrito} stockDisponible={stockDisponible} onAgregar={agregarAlCarrito} />} 
+            element={<BusquedaPage carrito={carrito} stockDisponible={stockDisponible} alAgregar={agregarAlCarrito} />} 
           />
 
           <Route path="/nosotros" element={<Nosotros />} />
@@ -145,10 +147,10 @@ function App() {
             element={
               <CarritoPage 
                 carrito={carrito} 
-                onAgregar={agregarAlCarrito} 
-                onRestar={restarDelCarrito} 
-                onEliminar={eliminarDelCarrito} 
-                onFinalizarCompra={finalizarCompra}
+                alAgregar={agregarAlCarrito} 
+                alRestar={restarDelCarrito} 
+                alEliminar={eliminarDelCarrito} 
+                alFinalizarCompra={finalizarCompra}
               />
             } 
           />

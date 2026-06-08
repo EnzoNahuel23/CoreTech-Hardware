@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Button, Alert, Row, Col } from 'react-bootstrap';
 
-function Formulario({ carrito = [], onCompraExitosa }) {
+function Formulario({ carrito = [], alCompraExitosa }) {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -11,8 +11,8 @@ function Formulario({ carrito = [], onCompraExitosa }) {
 
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const manejarEnvio = (evento) => {
+    evento.preventDefault();
     setError('');
 
     if (carrito.length === 0) {
@@ -25,14 +25,13 @@ function Formulario({ carrito = [], onCompraExitosa }) {
       return;
     }
 
-    // Validación de formato de Email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regexCorreo.test(email)) {
       setError('⚠️ Por favor, ingresa un correo electrónico válido.');
       return;
     }
 
-    onCompraExitosa();
+    alCompraExitosa();
 
     setNombre('');
     setEmail('');
@@ -49,7 +48,7 @@ function Formulario({ carrito = [], onCompraExitosa }) {
 
       {error && <Alert variant="danger">{error}</Alert>}
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={manejarEnvio}>
         <Row>
           <Col md={6} className="mb-3">
             <Form.Group controlId="formNombre">

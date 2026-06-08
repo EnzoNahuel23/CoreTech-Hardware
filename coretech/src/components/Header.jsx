@@ -9,12 +9,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './HeaderStyle.css';
 
-function Header({ cantidad, onVaciar, darkMode, onToggleDarkMode, notificacion }) {
+function Header({ cantidad, alVaciar, modoOscuro, alCambiarModoOscuro, notificacion }) {
   const navigate = useNavigate();
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
-  const handleBuscar = (e) => {
-    e.preventDefault();
+  const manejarBusqueda = (evento) => {
+    evento.preventDefault();
     if (textoBusqueda.trim() !== '') {
       navigate(`/buscar/${textoBusqueda.trim()}`);
     }
@@ -44,13 +44,13 @@ function Header({ cantidad, onVaciar, darkMode, onToggleDarkMode, notificacion }
             </NavDropdown>
           </Nav>
           
-          <Form className="d-flex" onSubmit={handleBuscar}>
+          <Form className="d-flex" onSubmit={manejarBusqueda}>
             <Form.Control 
               type="search" 
               placeholder="Buscar producto..." 
               className="me-2" 
               value={textoBusqueda}
-              onChange={(e) => setTextoBusqueda(e.target.value)}
+              onChange={(evento) => setTextoBusqueda(evento.target.value)}
             />
             <Button variant="outline-success" type="submit">Buscar</Button>
           </Form>
@@ -63,11 +63,11 @@ function Header({ cantidad, onVaciar, darkMode, onToggleDarkMode, notificacion }
             Carrito <Badge bg="success" text="white" className={`ms-1 ${notificacion ? 'badge-bounce' : ''}`}>{cantidad}</Badge>
           </Button>
           
-          <Button variant={darkMode ? "light" : "dark"} className="ms-2" onClick={onToggleDarkMode}>
-            {darkMode ? '☀️' : '🌙'}
+          <Button variant={modoOscuro ? "light" : "dark"} className="ms-2" onClick={alCambiarModoOscuro}>
+            {modoOscuro ? '☀️' : '🌙'}
           </Button>
 
-          <Button variant="danger" className="ms-2" onClick={onVaciar}>
+          <Button variant="danger" className="ms-2" onClick={alVaciar}>
             Vaciar Carrito
           </Button>
         </Navbar.Collapse>

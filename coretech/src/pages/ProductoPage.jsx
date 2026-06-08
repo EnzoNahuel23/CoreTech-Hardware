@@ -4,11 +4,11 @@ import { productos } from '../data/productos';
 import { formatearPrecio } from '../utils/formatearPrecio.js';
 import './ProductoPageStyle.css';
 
-function ProductoPage({ carrito = [], stockDisponible = {}, onAgregarProducto }) {
-  const { id } = useParams();
+function ProductoPage({ carrito = [], stockDisponible = {}, alAgregarProducto }) {
+  const { id: idProducto } = useParams();
   const navigate = useNavigate();
 
-  const producto = productos.find((p) => p.id === parseInt(id));
+  const producto = productos.find((itemProducto) => itemProducto.id === parseInt(idProducto));
 
   if (!producto) {
     return (
@@ -21,17 +21,17 @@ function ProductoPage({ carrito = [], stockDisponible = {}, onAgregarProducto })
     );
   }
 
-  const productoEnCarrito = carrito.find((item) => item.id === producto.id);
+  const productoEnCarrito = carrito.find((productoCarrito) => productoCarrito.id === producto.id);
   const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
   const stockActual = stockDisponible[producto.id] ?? producto.stock;
   const stockRestante = stockActual - cantidadEnCarrito;
   const sinStock = stockRestante <= 0;
 
-  const handleComprar = () => {
+  const manejarCompra = () => {
     if (sinStock) {
       alert("⚠️ Lo sentimos, no se pueden agregar más unidades.");
     } else {
-      onAgregarProducto(producto);
+      alAgregarProducto(producto);
     }
   };
 
@@ -67,7 +67,7 @@ function ProductoPage({ carrito = [], stockDisponible = {}, onAgregarProducto })
             variant={sinStock ? "secondary" : "success"} 
             size="lg" 
             className={`w-100 producto-page-btn ${sinStock ? 'sin-stock' : ''}`}
-            onClick={handleComprar}
+            onClick={manejarCompra}
           >
             {sinStock ? "Sin Stock Disponible" : "Agregar al carrito"}
           </Button>
