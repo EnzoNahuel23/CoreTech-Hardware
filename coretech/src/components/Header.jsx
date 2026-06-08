@@ -10,12 +10,12 @@ import Button from 'react-bootstrap/Button';
 
 function Header({ cantidad, onVaciar }) {
   const navigate = useNavigate();
-  const [textoBusqueda, setTextoBusqueda] = useState(''); // Estado para capturar la escritura
+  const [textoBusqueda, setTextoBusqueda] = useState('');
 
   const handleBuscar = (e) => {
-    e.preventDefault(); // Evita que la página se recargue
+    e.preventDefault();
     if (textoBusqueda.trim() !== '') {
-      navigate(`/buscar/${textoBusqueda.trim()}`); // Redirige a la ruta de búsqueda
+      navigate(`/buscar/${textoBusqueda.trim()}`);
     }
   };
 
@@ -28,9 +28,7 @@ function Header({ cantidad, onVaciar }) {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-            
             <Nav.Link onClick={() => navigate('/')}>Inicio</Nav.Link>
-            
             <Nav.Link onClick={() => navigate('/catalogo')}>Catálogo</Nav.Link>
 
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">
@@ -44,22 +42,24 @@ function Header({ cantidad, onVaciar }) {
             </NavDropdown>
           </Nav>
           
-          {/* Formulario de búsqueda conectado al estado */}
           <Form className="d-flex" onSubmit={handleBuscar}>
             <Form.Control 
               type="search" 
               placeholder="Buscar producto..." 
               className="me-2" 
-              aria-label="Search"
               value={textoBusqueda}
-              onChange={(e) => setTextoBusqueda(e.target.value)} // Va guardando la letra que escribís
+              onChange={(e) => setTextoBusqueda(e.target.value)}
             />
             <Button variant="outline-success" type="submit">Buscar</Button>
           </Form>
 
-          <Nav.Link style={{ marginLeft: 20, marginRight: 20, color: "white", cursor: 'default' }}>
-            Carrito <Badge bg="success">{cantidad}</Badge>
-          </Nav.Link>
+          <Button 
+            variant="success" 
+            style={{ marginLeft: 20, marginRight: 10 }}
+            onClick={() => navigate('/carrito')}
+          >
+            Carrito <Badge bg="success" text="white" className="ms-1">{cantidad}</Badge>
+          </Button>
           
           <Button variant="danger" className="ms-2" onClick={onVaciar}>
             Vaciar Carrito

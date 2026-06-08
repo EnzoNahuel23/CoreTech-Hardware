@@ -1,15 +1,9 @@
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
 import Catalogo from '../components/Catalogo.jsx';
 
-function CatalogoPage({ carrito = [], onAgregar, onVaciar }) {
-  const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-
+function CatalogoPage({ carrito, onAgregar }) {
   return (
     <>
-      <Header cantidad={cantidadTotal} onVaciar={onVaciar} />
       <Catalogo carrito={carrito} onAgregarProducto={onAgregar} />
-      <Footer />
     </>
   );
 }
