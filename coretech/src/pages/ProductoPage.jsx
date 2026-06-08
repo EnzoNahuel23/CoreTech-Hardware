@@ -1,8 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { productos } from '../data/productos';
+import { formatearPrecio } from '../utils/formatearPrecio.js';
+import './ProductoPageStyle.css';
 
-function ProductoPage({ carrito = [], onAgregarProducto }) {
+function ProductoPage({ carrito = [], stockDisponible = {}, onAgregarProducto }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -21,7 +23,8 @@ function ProductoPage({ carrito = [], onAgregarProducto }) {
 
   const productoEnCarrito = carrito.find((item) => item.id === producto.id);
   const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
-  const stockRestante = producto.stock - cantidadEnCarrito;
+  const stockActual = stockDisponible[producto.id] ?? producto.stock;
+  const stockRestante = stockActual - cantidadEnCarrito;
   const sinStock = stockRestante <= 0;
 
   const handleComprar = () => {
@@ -33,7 +36,7 @@ function ProductoPage({ carrito = [], onAgregarProducto }) {
   };
 
   return (
-    <Container style={{ marginTop: 50, marginBottom: 50 }}>
+    <Container className="producto-page-container">
       <Button variant="outline-success" onClick={() => navigate('/catalogo')} className="mb-4">
         ← Volver al Catálogo
       </Button>
@@ -43,30 +46,28 @@ function ProductoPage({ carrito = [], onAgregarProducto }) {
           <img 
             src={producto.imagen} 
             alt={producto.nombre} 
-            className="img-fluid" 
-            style={{ maxHeight: '400px', objectFit: 'contain', backgroundColor: 'transparent' }}
+            className="img-fluid producto-page-img" 
           />
         </Col>
         
         <Col md={6}>
           <span className="text-muted text-uppercase small">{producto.categoria}</span>
           <h1 className="fw-bold mt-2">{producto.nombre}</h1>
-          <h2 className="text-success my-3">{producto.precio}</h2>
+          <h2 className="text-success my-3">{formatearPrecio(producto.precio)}</h2>
           <p className="lead">{producto.descripcion || "Sin descripción disponible."}</p>
           <hr />
           
           <div className="my-4">
             <h5><strong>Disponibilidad:</strong></h5>
-            <p className="mb-1">Stock de la tienda: <span className="fw-bold">{producto.stock} unidades</span>.</p>
+            <p className="mb-1">Stock de la tienda: <span className="fw-bold">{stockActual} unidades</span>.</p>
             <small className="text-muted d-block">(Llevás {cantidadEnCarrito}. Te quedan {stockRestante})</small>
           </div>
 
           <Button 
             variant={sinStock ? "secondary" : "success"} 
             size="lg" 
-            className="w-100"
+            className={`w-100 producto-page-btn ${sinStock ? 'sin-stock' : ''}`}
             onClick={handleComprar}
-            style={{ opacity: sinStock ? 0.5 : 1, cursor: sinStock ? 'not-allowed' : 'pointer' }}
           >
             {sinStock ? "Sin Stock Disponible" : "Agregar al carrito"}
           </Button>

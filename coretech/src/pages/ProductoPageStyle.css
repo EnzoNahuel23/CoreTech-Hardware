@@ -1,0 +1,20 @@
+.producto-page-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.producto-page-img {
+  max-height: 400px;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+.producto-page-btn {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.producto-page-btn.sin-stock {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -7,8 +7,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Badge from 'react-bootstrap/Badge';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import './HeaderStyle.css';
 
-function Header({ cantidad, onVaciar }) {
+function Header({ cantidad, onVaciar, darkMode, onToggleDarkMode, notificacion }) {
   const navigate = useNavigate();
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
@@ -22,14 +23,15 @@ function Header({ cantidad, onVaciar }) {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container fluid>
-        <Navbar.Brand onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+        <Navbar.Brand className="header-brand" onClick={() => navigate('/')}>
           CoreTech
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+          <Nav className="me-auto my-2 my-lg-0 header-nav" navbarScroll>
             <Nav.Link onClick={() => navigate('/')}>Inicio</Nav.Link>
             <Nav.Link onClick={() => navigate('/catalogo')}>Catálogo</Nav.Link>
+            <Nav.Link onClick={() => navigate('/nosotros')}>Nosotros</Nav.Link>
 
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">
               <NavDropdown.Item onClick={() => navigate('/categoria/mother')}>Motherboards</NavDropdown.Item>
@@ -55,12 +57,16 @@ function Header({ cantidad, onVaciar }) {
 
           <Button 
             variant="success" 
-            style={{ marginLeft: 20, marginRight: 10 }}
+            className="header-carrito-btn"
             onClick={() => navigate('/carrito')}
           >
-            Carrito <Badge bg="success" text="white" className="ms-1">{cantidad}</Badge>
+            Carrito <Badge bg="success" text="white" className={`ms-1 ${notificacion ? 'badge-bounce' : ''}`}>{cantidad}</Badge>
           </Button>
           
+          <Button variant={darkMode ? "light" : "dark"} className="ms-2" onClick={onToggleDarkMode}>
+            {darkMode ? '☀️' : '🌙'}
+          </Button>
+
           <Button variant="danger" className="ms-2" onClick={onVaciar}>
             Vaciar Carrito
           </Button>

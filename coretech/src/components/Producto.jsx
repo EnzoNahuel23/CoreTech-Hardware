@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
+import { formatearPrecio } from '../utils/formatearPrecio.js';
+import './ProductoStyle.css';
 
 function Producto({ id, imagen, titulo, precio, stockRestante, onAgregar }) {
   const navigate = useNavigate();
@@ -15,35 +17,29 @@ function Producto({ id, imagen, titulo, precio, stockRestante, onAgregar }) {
 
   return (
     <Card 
-      style={{ 
-        marginTop: 20,
-        opacity: sinStock ? 0.5 : 1,
-        transition: 'all 0.2s ease-in-out'
-      }} 
-      className="h-100"
+      className={`producto-card h-100 ${sinStock ? 'sin-stock' : ''}`}
     >
       <div 
         onClick={handleCardClick} 
-        style={{ cursor: sinStock ? 'not-allowed' : 'pointer' }}
+        className="producto-card-link"
       >
         <Card.Img 
           variant="top" 
           src={imagen} 
-          style={{ backgroundColor: 'transparent' }} 
+          className="producto-img"
         />
         <Card.Body>
           <Card.Title>{titulo}</Card.Title>
-          <Card.Text className="text-success fw-bold">${precio}</Card.Text>
+          <Card.Text className="text-success fw-bold">{formatearPrecio(precio)}</Card.Text>
         </Card.Body>
       </div>
       
-      <Card.Footer className="bg-white border-0">
+      <Card.Footer className="bg-body border-0">
         <Button 
           variant={sinStock ? "secondary" : "success"} 
           onClick={onAgregar} 
-          className="w-100"
-          disabled={sinStock} 
-          style={{ cursor: sinStock ? 'not-allowed' : 'pointer' }}
+          className="w-100 producto-btn"
+          disabled={sinStock}
         >
           {sinStock ? "Sin Stock" : "Agregar al carrito"}
         </Button>

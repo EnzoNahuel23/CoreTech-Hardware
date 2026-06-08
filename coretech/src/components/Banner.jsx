@@ -1,5 +1,6 @@
 import { Container, Row, Image, Col } from "react-bootstrap";
-import Imagenes from "./Carousel"; 
+import Imagenes from "./Carousel";
+import './BannerStyle.css';
 
 function Banner() {
   return (
@@ -11,100 +12,28 @@ function Banner() {
         <Row className="g-4 justify-content-center">
 
           <Col xs={12} md={6} className="d-flex justify-content-center">
-            <Image 
-              src="/imagenes/inicio/consolas.png" 
-              rounded 
-              fluid
-              style={{ 
-                maxHeight: "500px", 
-                width: "100%",
-                objectFit: "contain"
-              }} 
-            />
+            <Image src="/imagenes/inicio/consolas.png" rounded fluid className="banner-image" />
           </Col>
           <Col xs={12} md={6} className="d-flex justify-content-center">
-            <Image 
-              src="/imagenes/inicio/ensamblados.png" 
-              rounded 
-              fluid
-              style={{ 
-                maxHeight: "500px", 
-                width: "100%",
-                objectFit: "contain"
-              }} 
-            />
+            <Image src="/imagenes/inicio/ensamblados.png" rounded fluid className="banner-image" />
           </Col>
           <Col xs={12} md={6} className="d-flex justify-content-center">
-            <Image 
-              src="/imagenes/inicio/almacenamiento.png" 
-              rounded 
-              fluid
-              style={{ 
-                maxHeight: "500px", 
-                width: "100%",
-                objectFit: "contain"
-              }} 
-            />
+            <Image src="/imagenes/inicio/almacenamiento.png" rounded fluid className="banner-image" />
           </Col>
           <Col xs={12} md={6} className="d-flex justify-content-center">
-            <Image 
-              src="/imagenes/inicio/fuentes.png" 
-              rounded 
-              fluid
-              style={{ 
-                maxHeight: "500px", 
-                width: "100%",
-                objectFit: "contain"
-              }} 
-            />
+            <Image src="/imagenes/inicio/fuentes.png" rounded fluid className="banner-image" />
           </Col>
           <Col xs={12} md={6} className="d-flex justify-content-center">
-            <Image 
-              src="/imagenes/inicio/motherboards.png" 
-              rounded 
-              fluid
-              style={{ 
-                maxHeight: "500px", 
-                width: "100%",
-                objectFit: "contain"
-              }} 
-            />
+            <Image src="/imagenes/inicio/motherboards.png" rounded fluid className="banner-image" />
           </Col>
           <Col xs={12} md={6} className="d-flex justify-content-center">
-            <Image 
-              src="/imagenes/inicio/perifericos.png" 
-              rounded 
-              fluid
-              style={{ 
-                maxHeight: "500px", 
-                width: "100%",
-                objectFit: "contain"
-              }} 
-            />
+            <Image src="/imagenes/inicio/perifericos.png" rounded fluid className="banner-image" />
           </Col>
           <Col xs={12} md={6} className="d-flex justify-content-center">
-            <Image 
-              src="/imagenes/inicio/placas.png" 
-              rounded 
-              fluid
-              style={{ 
-                maxHeight: "500px", 
-                width: "100%",
-                objectFit: "contain"
-              }} 
-            />
+            <Image src="/imagenes/inicio/placas.png" rounded fluid className="banner-image" />
           </Col>
           <Col xs={12} md={6} className="d-flex justify-content-center">
-            <Image 
-              src="/imagenes/inicio/ram.png" 
-              rounded 
-              fluid
-              style={{ 
-                maxHeight: "500px", 
-                width: "100%",
-                objectFit: "contain"
-              }} 
-            />
+            <Image src="/imagenes/inicio/ram.png" rounded fluid className="banner-image" />
           </Col>
 
         </Row>

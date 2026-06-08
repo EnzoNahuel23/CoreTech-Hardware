@@ -1,0 +1,93 @@
+.nosotros-page-container {
+  margin-top: 50px;
+  margin-bottom: 60px;
+}
+
+.nosotros-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.nosotros-logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 16px;
+}
+
+.nosotros-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #1F2937;
+}
+
+[data-bs-theme="dark"] .nosotros-title {
+  color: #f3f4f6;
+}
+
+.nosotros-subtitle {
+  font-size: 1.1rem;
+  color: #6B7280;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.nosotros-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.nosotros-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nosotros-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 16px;
+}
+
+[data-bs-theme="dark"] .nosotros-card-title {
+  color: #f3f4f6;
+}
+
+.nosotros-card-text {
+  color: #4B5563;
+  line-height: 1.7;
+}
+
+[data-bs-theme="dark"] .nosotros-card-text {
+  color: #d1d5db;
+}
+
+.nosotros-historia {
+  margin-top: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.nosotros-historia h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 20px;
+}
+
+[data-bs-theme="dark"] .nosotros-historia h2 {
+  color: #f3f4f6;
+}
+
+.nosotros-historia p {
+  color: #4B5563;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+
+[data-bs-theme="dark"] .nosotros-historia p {
+  color: #d1d5db;
+}

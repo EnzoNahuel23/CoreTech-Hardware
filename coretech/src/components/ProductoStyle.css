@@ -1,0 +1,28 @@
+.producto-card {
+  margin-top: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.producto-card.sin-stock {
+  opacity: 0.5;
+}
+
+.producto-card-link {
+  cursor: pointer;
+}
+
+.producto-card.sin-stock .producto-card-link {
+  cursor: not-allowed;
+}
+
+.producto-img {
+  background-color: transparent;
+}
+
+.producto-btn:not(:disabled) {
+  cursor: pointer;
+}
+
+.producto-btn:disabled {
+  cursor: not-allowed;
+}

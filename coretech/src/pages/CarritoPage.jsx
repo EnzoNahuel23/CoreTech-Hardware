@@ -2,24 +2,17 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Table, Button, Row, Col, Modal } from 'react-bootstrap';
 import Formulario from '../components/Formulario.jsx';
+import { formatearPrecio } from '../utils/formatearPrecio.js';
+import './CarritoPageStyle.css';
 
-function CarritoPage({ carrito = [], onAgregar, onRestar, onEliminar, onVaciar }) {
+function CarritoPage({ carrito = [], onAgregar, onRestar, onEliminar, onVaciar, onFinalizarCompra }) {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-
-  const limpiarPrecio = (precioStr) => {
-    if (!precioStr) return 0;
-    return parseInt(precioStr.replace('$', '').replace(/\./g, ''), 10);
-  };
-
-  const formatearPrecio = (numero) => {
-    return '$' + numero.toLocaleString('es-AR');
-  };
 
   const cantidadTotalProductos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
   
   const totalGeneralDinero = carrito.reduce((acc, item) => {
-    return acc + (limpiarPrecio(item.precio) * item.cantidad);
+    return acc + (item.precio * item.cantidad);
   }, 0);
 
   const activarSimulacionCompra = () => {
@@ -28,12 +21,16 @@ function CarritoPage({ carrito = [], onAgregar, onRestar, onEliminar, onVaciar }
 
   const handleCerrarModalYVaciar = () => {
     setShowModal(false);
-    onVaciar();
+    if (onFinalizarCompra) {
+      onFinalizarCompra();
+    } else {
+      onVaciar();
+    }
     navigate('/');
   };
 
   return (
-    <Container style={{ marginTop: 40, marginBottom: 60 }}>
+    <Container className="carrito-page-container">
       <h2 className="fw-bold mb-4">Tu Carrito de Compras</h2>
 
       {carrito.length === 0 ? (
@@ -45,8 +42,8 @@ function CarritoPage({ carrito = [], onAgregar, onRestar, onEliminar, onVaciar }
         </div>
       ) : (
         <Row className="g-4">
-          <Col lg={7}>
-            <Table responsive hover className="align-middle border shadow-sm rounded bg-white">
+          <Col xs={12} lg={7}>
+            <Table responsive hover className="align-middle border shadow-sm rounded bg-body">
               <thead className="table-dark">
                 <tr>
                   <th>Item</th>
@@ -59,15 +56,15 @@ function CarritoPage({ carrito = [], onAgregar, onRestar, onEliminar, onVaciar }
               </thead>
               <tbody>
                 {carrito.map((item) => {
-                  const subtotalItem = limpiarPrecio(item.precio) * item.cantidad;
+                  const subtotalItem = item.precio * item.cantidad;
 
                   return (
                     <tr key={item.id}>
                       <td>
-                        <img src={item.imagen} alt={item.nombre} style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+                        <img src={item.imagen} alt={item.nombre} className="carrito-page-img" />
                       </td>
                       <td className="fw-semibold small">{item.nombre}</td>
-                      <td className="small">{item.precio}</td>
+                      <td className="small">{formatearPrecio(item.precio)}</td>
                       <td className="text-center">
                         <div className="d-flex justify-content-center align-items-center gap-1">
                           <Button variant="outline-secondary" size="sm" onClick={() => onRestar(item.id)}>-</Button>
@@ -75,7 +72,7 @@ function CarritoPage({ carrito = [], onAgregar, onRestar, onEliminar, onVaciar }
                           <Button variant="outline-secondary" size="sm" onClick={() => onAgregar(item)}>+</Button>
                         </div>
                       </td>
-                      <td className="fw-bold text-dark small">{formatearPrecio(subtotalItem)}</td>
+                      <td className="fw-bold text-body small">{formatearPrecio(subtotalItem)}</td>
                       <td className="text-center">
                         <Button variant="text" className="text-danger p-0 small text-decoration-underline" onClick={() => onEliminar(item.id)}>
                           Quitar
@@ -88,8 +85,8 @@ function CarritoPage({ carrito = [], onAgregar, onRestar, onEliminar, onVaciar }
             </Table>
           </Col>
 
-          <Col lg={5}>
-            <div className="bg-light p-4 rounded border shadow-sm mb-3">
+          <Col xs={12} lg={5}>
+            <div className="bg-body p-4 rounded border shadow-sm mb-3">
               <h4 className="fw-bold mb-3">Resumen del Pedido</h4>
               <div className="d-flex justify-content-between mb-2">
                 <span>Artículos totales:</span>
@@ -102,7 +99,7 @@ function CarritoPage({ carrito = [], onAgregar, onRestar, onEliminar, onVaciar }
               </div>
             </div>
 
-            <Formulario onCompraExitosa={activarSimulacionCompra} />
+            <Formulario carrito={carrito} onCompraExitosa={activarSimulacionCompra} />
           </Col>
         </Row>
       )}

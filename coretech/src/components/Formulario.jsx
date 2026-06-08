@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Button, Alert, Row, Col } from 'react-bootstrap';
 
-function Formulario({ onCompraExitosa }) {
+function Formulario({ carrito = [], onCompraExitosa }) {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -14,6 +14,11 @@ function Formulario({ onCompraExitosa }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
+
+    if (carrito.length === 0) {
+      setError('⚠️ El carrito está vacío. Agregá productos antes de confirmar la compra.');
+      return;
+    }
 
     if (!nombre.trim() || !email.trim() || !telefono.trim() || !localidad.trim()) {
       setError('⚠️ Todos los campos son obligatorios para poder coordinar el envío.');
@@ -38,7 +43,7 @@ function Formulario({ onCompraExitosa }) {
   };
 
   return (
-    <div className="bg-light p-4 rounded border shadow-sm mt-4">
+    <div className="bg-body p-4 rounded border shadow-sm mt-4">
       <h4 className="fw-bold mb-3 text-secondary">Completa tus datos para coordinar la entrega</h4>
       <p className="text-muted small mb-4">Necesitamos esta información para procesar el despacho de tus componentes.</p>
 

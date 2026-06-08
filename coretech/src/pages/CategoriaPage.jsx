@@ -2,8 +2,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import Producto from '../components/Producto.jsx';
 import { productos } from '../data/productos';
+import './CategoriaPageStyle.css';
 
-function CategoriaPage({ carrito = [], onAgregar }) {
+function CategoriaPage({ carrito = [], stockDisponible = {}, onAgregar }) {
   const { cat } = useParams();
   const navigate = useNavigate();
 
@@ -12,7 +13,7 @@ function CategoriaPage({ carrito = [], onAgregar }) {
   );
 
   return (
-    <Container style={{ marginTop: 40, marginBottom: 50 }}>
+    <Container className="categoria-page-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fw-bold text-uppercase">Sección: {cat}</h2>
         <Button variant="outline-success" onClick={() => navigate('/catalogo')}>
@@ -29,10 +30,10 @@ function CategoriaPage({ carrito = [], onAgregar }) {
           {productosFiltrados.map((p) => {
             const itemEnCarrito = carrito.find((item) => item.id === p.id);
             const cantidadEnCarrito = itemEnCarrito ? itemEnCarrito.cantidad : 0;
-            const stockRestante = p.stock - cantidadEnCarrito;
+            const stockRestante = (stockDisponible[p.id] ?? p.stock) - cantidadEnCarrito;
 
             return (
-              <Col md={3} key={p.id}>
+              <Col xs={12} sm={6} md={3} key={p.id}>
                 <Producto
                   id={p.id}
                   imagen={p.imagen}

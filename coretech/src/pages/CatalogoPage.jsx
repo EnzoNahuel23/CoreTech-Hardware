@@ -1,9 +1,9 @@
 import Catalogo from '../components/Catalogo.jsx';
 
-function CatalogoPage({ carrito, onAgregar }) {
+function CatalogoPage({ carrito, stockDisponible, onAgregar }) {
   return (
     <>
-      <Catalogo carrito={carrito} onAgregarProducto={onAgregar} />
+      <Catalogo carrito={carrito} stockDisponible={stockDisponible} onAgregarProducto={onAgregar} />
     </>
   );
 }
